@@ -1,289 +1,88 @@
+
 function RomanNumerals (entry) {
     const num = [...`${entry}`]
-    let ones;
-    let tens;
-    let hundreds;
-    let thousands;
-    let onesLetter;
-    let onesMinus5;
-    let tensLetter;
-    let tensMinus50;
-    let hundredsLetter;
-    let hundredsMinus500;
-    let thousandsLetter;
-    
     if ((typeof entry === 'number') === true ) {
+        let ones, tens, hundreds, thousands;
+        let onesLetter, tensLetter, hundredsLetter, thousandsLetter;
+        let onesString, tensString, hundredsString, thousandsString;
+
         ones = num[num.length - 1]
         tens = num[num.length - 2]
         hundreds = num[num.length - 3]
         thousands = num[num.length - 4]
+      
+        ones === undefined ? ones = 0 : null
+        tens === undefined ? tens = 0 : null
+        hundreds === undefined ? hundreds = 0 : null
+        thousands === undefined ? thousands = 0 : null
 
-        if (ones <= '3') {
-            onesLetter = 'I'.repeat(ones)
-        }
-        else if (ones === '4') {
-            onesLetter = 'IV'
-        }
-        else if (ones <= '8') {
-            onesMinus5 = ones - 5
-            onesLetter = 'V'.concat('I'.repeat(onesMinus5))
-        }
-        else if (ones === '9') {
-            onesLetter = 'IX'
-        } 
+        onesString = ones.toString()
+        onesLetter = 'I'.repeat(onesString)
+        onesLetter = onesLetter.replace("IIIIIIIII", "IX")
+        onesLetter = onesLetter.replace("IIIII", "V")
+        onesLetter = onesLetter.replace("IIII", "IV")
+                
+        tensString = tens.toString()
 
-        if (tens <= '3') {
-        tensLetter = 'X'.repeat(tens)
-        }
-        else if (tens === '4') {
-            tensLetter = 'XL'
-        }
-        else if (tens <= '8') {
-            tensMinus50 = tens - 5
-            tensLetter = 'L'.concat('X'.repeat(tensMinus50))
-        }
-        else if (tens === '9') {
-            tensLetter = 'XC'
-        }
-        else {
-            tensLetter = '' 
-        }
-        if (hundreds <= '3') {
-            hundredsLetter = 'C'.repeat(hundreds)
-        }
-        else if (hundreds === '4') {
-            hundredsLetter = 'CD'
-        }
-        else if (hundreds <= '8') {
-            hundredsMinus500 = hundreds - 5
-            hundredsLetter = 'D'.concat('C'.repeat(hundredsMinus500))
-        }
-        else if (hundreds === '9') {
-            hundredsLetter = 'CM'    
-        }
-        else {
-            hundredsLetter = '' 
-        }
-        if (thousands <= '3') {
-            thousandsLetter = 'M'.repeat(thousands)
-        }
-        else {
-            thousandsLetter = '' 
-        }
+        tensLetter = 'X'.repeat(tensString)
+        tensLetter = tensLetter.replace("XXXXXXXXX", "XC")
+        tensLetter = tensLetter.replace("XXXXX", "L")
+        tensLetter = tensLetter.replace("XXXX", "XL")
+
+        hundredsString = hundreds.toString()
+
+        hundredsLetter = 'C'.repeat(hundredsString)
+        hundredsLetter = hundredsLetter.replace("CCCCCCCCC", "CM")
+        hundredsLetter = hundredsLetter.replace("CCCCC", "D")
+        hundredsLetter = hundredsLetter.replace("CCCC", "CD")
+        
+        thousandsString = thousands.toString()
+        thousandsLetter = "M".repeat(thousandsString)
+          
         const CompleteLetter = thousandsLetter + hundredsLetter + tensLetter + onesLetter
+ 
         return (CompleteLetter)
-        } 
-    
-    let onesM;
-    let onesNumber;
-    let onesI;
-    let onesV;
-    let onesSlice;
-    let onesSliceN;
-    let tensSlice;
-    let tensSliceN;
-    let tensX;
-    let tensL;
-    let tensNumber;
-    let hundredsSlice;
-    let hundredsSliceN;
-    let hundredsC;
-    let hundredsD;
-    let hundredsNumber;
-    let thousandsM;
-    let thousandsNumber;
-    let thousandsSlice;
-    let thousandsSliceN;
-  
-
-    if ((typeof entry ==='string') === true ) {
-        onesI = num.indexOf('I')
-        onesV = num.indexOf('V')
-        tensL = num.indexOf('L')
-        hundredsD = num.indexOf('D')
-        if (((num.indexOf('X') < num.indexOf('I'))) || !num.includes('I')) {
-            tensX = num.indexOf('X')
-        }
-        if (((num.indexOf('C') < num.indexOf('X'))) || !num.includes('X')) {
-            hundredsC = num.indexOf('C')
-        }
-        if (((num.indexOf('M') < num.indexOf('C'))) || !num.includes('C')) {
-            thousandsM = num.indexOf('M')
-        }
-        if (onesI > -1 || onesV > -1) {
-            if (onesV > -1 && onesI > -1) {
-            
-                if (onesI < onesV) {
-                    onesSliceN = onesI}
-                else if (onesI > onesV) {
-                    onesSliceN = onesV
-                }
-                else if (onesI = onesV) {
-                    onesSliceN = 0
-                }
-            }
-            else if (onesV === -1 && onesI > -1) {
-                onesSliceN = onesI
-            }
-            else if (onesI === -1 && onesV > -1) {
-                onesSliceN = onesV
-            }
-            else if (onesI === -1 && onesV === -1) {
-                onesSlice = 0
-            }
-            if(onesSliceN > -1) {  
-                onesSlice = num.slice(onesSliceN)
-            }
-            if ((onesSlice.indexOf('X') === onesSlice.length - 1) && (onesSlice.indexOf('I') === onesSlice.length - 2)) {
-                onesNumber = 9
-            }
-            else if (!num.includes('V') && num.includes('I') ){
-                onesNumber = (((onesSlice.lastIndexOf('I')) * 1) + 1)
-            }
-
-            else if (onesV === num.length - 1 && onesI === num.length - 2) {
-                onesNumber = 4
-            } 
-            if(!num.includes('I') && num.includes('V')) {
-                if (onesSlice.length === 1){
-                    onesNumber = 5      
-            } }
-            if((num.includes('I')) && (num.includes('V'))) {
-                if(onesI > onesV) {
-                    onesNumber = (((onesSlice.lastIndexOf('I')) * 1) + 5);
-                } }
-            }
-        else if (!num.includes('I') && !num.includes('V') ){
-                onesNumber = 0
-            }
-        if (tensX > -1 || tensL > -1) {
-            if (tensX > -1 && tensL > -1) {
-                if (tensX < tensL) {
-                    tensSliceN = tensX}
-                else if (tensX > tensL) {
-                    tensSliceN = tensL
-                }
-                else if (tensX = tensL) {
-                    tensSliceN = 0
-                }
-            }
-            else if (tensL === -1 && tensX > -1) {
-                tensSliceN = tensX
-            }
-            else if (tensX === -1 && tensL > -1) {
-                tensSliceN = tensL
-            }
-            else if (tensX === -1 && tensL === -1) {
-                tensSlice = 0
-            }
-            if(onesSliceN > -1 && tensSliceN > -1) {  
-                tensSlice = num.slice(tensSliceN,onesSliceN)
-            }
-            else if (onesSliceN === undefined && tensSliceN > -1 ){
-                tensSlice = num.slice(tensSliceN)
-            }
-            if ((tensSlice.indexOf('C') === tensSlice.length - 1) && (tensSlice.indexOf('X') === tensSlice.length - 2)) {
-                tensNumber = 90
-            }
-            else if (!num.includes('L') && num.includes('X') && ((num.indexOf('X') < num.indexOf('I')) || !num.includes('I'))){
-                tensNumber = (((tensSlice.lastIndexOf('X')) * 10) + 10)
-            }
-            else if (tensSlice.indexOf('L') === tensSlice.length - 1 && tensSlice.indexOf('X') === tensSlice.length - 2) {
-                tensNumber = 40
-            } 
-            if((!num.includes('X')) && (num.includes('L'))) {
-                if (tensSlice.length === 1){
-                    tensNumber = 50
-            }}
-            if((num.includes('X')) && (num.includes('L'))) {
-                if(tensX > tensL) {
-                    tensNumber = (((tensSlice.lastIndexOf('X')) * 10) + 50);
-                } }
-            }
-        else if ((!num.includes('X') && !num.includes('L')) || ((num.indexOf('X') > num.indexOf('I')) && num.includes('I'))){
-                tensNumber = 0
-            }
-
-// Hundreds Portions in Code
-    if (hundredsC > -1 || hundredsD > -1) {
-        if (hundredsC > -1 && hundredsD > -1) {
-            if (hundredsC < hundredsD) {
-                hundredsSliceN = hundredsC}
-            else if (hundredsC > hundredsD) {
-                hundredsSliceN = hundredsD
-            }
-            else if (hundredsC = hundredsD) {
-                hundredsSliceN = 0
-            }
-        }
-        else if (hundredsD === -1 && hundredsC > -1) {
-            hundredsSliceN = hundredsC
-        }
-        else if (hundredsC === -1 && hundredsD > -1) {
-            hundredsSliceN = hundredsD
-        }
-        else if (hundredsC === -1 && hundredsD === -1) {
-            hundredsSliceN = 0
-        }
-        if(onesSliceN > -1 && hundredsSliceN > -1 && tensSliceN === undefined) {  
-            hundredsSlice = num.slice(hundredsSliceN,onesSliceN)
-        }
-        else if(tensSliceN > -1 && hundredsSliceN > -1) {  
-            hundredsSlice = num.slice(hundredsSliceN,tensSliceN)
-        }
-        else if (onesSliceN === undefined && tensSliceN === undefined && hundredsSliceN > -1 ){
-            hundredsSlice = num.slice(hundredsSliceN)
-        }
-        if ((hundredsSlice.indexOf('M') === hundredsSlice.length - 1) && (hundredsSlice.indexOf('C') === hundredsSlice.length - 2)) {
-            hundredsNumber = 900
-        }
-        else if (!num.includes('D') && num.includes('C') && ((num.indexOf('C') < num.indexOf('X')) || !num.includes('X'))){
-            hundredsNumber = (((hundredsSlice.lastIndexOf('C')) * 100) + 100)
-        }
-        else if (hundredsSlice.indexOf('D') === hundredsSlice.length - 1 && hundredsSlice.indexOf('C') === hundredsSlice.length - 2) {
-            hundredsNumber = 400
-        } 
-        if((!num.includes('C')) && (num.includes('D'))) {
-            if (hundredsSlice.length === 1){
-                hundredsNumber = 500
-        } }
-
-        if((num.includes('C')) && (num.includes('D'))) {
-            if(hundredsC > hundredsD) {
-                hundredsNumber = (((hundredsSlice.lastIndexOf('C')) * 100) + 500);
-            } }
-        }
-    else if ((!num.includes('C') && !num.includes('D')) || ((num.indexOf('C') > num.indexOf('X')) && num.includes('X'))){
-        hundredsNumber = 0
     }
-    //Thousands
-    if (thousandsM > -1 ) {
-
-        thousandsSliceN = thousandsM
-        if(onesSliceN > -1 && tensSliceN === undefined && hundredsSliceN === undefined && thousandsSliceN > -1) {  
-            thousandsSlice = num.slice(thousandsSliceN,onesSliceN)
-        }
-        else if(tensSliceN > -1 && hundredsSliceN === undefined && thousandsSliceN > -1) {  
-            thousandsSlice = num.slice(thousandsSliceN,tensSliceN)
-        }
-        else if(hundredsSliceN > -1 && thousandsSliceN > -1) {  
-            thousandsSlice = num.slice(thousandsSliceN,hundredsSliceN)
-        }
-        else if (onesSliceN === undefined && tensSliceN === undefined && hundredsSliceN === undefined && thousandsSliceN > -1 ){
-            thousandsSlice = num.slice(thousandsSliceN)
-        }
-        if (num.includes('M') && ((num.indexOf('M') < num.indexOf('C')) || !num.includes('C'))){
-            thousandsNumber = (((thousandsSlice.lastIndexOf('M')) * 1000) + 1000)
-        }
-        }
-    else if ((!num.includes('M')) || ((num.indexOf('M') > num.indexOf('C')) && num.includes('C'))){
-        thousandsNumber = 0
-    } }
-    
-    const CompleteNumber = thousandsNumber + hundredsNumber + tensNumber + onesNumber
-    return CompleteNumber
-     }
-    
-
+            
+     let onesInclude4or9 = 0
+     let tensIncluce4or9 = 0
+     let hundredsInclude4or9 = 0
+     
+     !num.includes('I') ? null :
+     num.indexOf('I') < num.indexOf('V') ? onesInclude4or9++ : 
+     num.indexOf('I') < num.lastIndexOf('X') ? onesInclude4or9++ : null 
+     
+     !num.includes('X') ? null :
+     num.indexOf('X') < num.indexOf('L') ? tensIncluce4or9++ : 
+     num.indexOf('X') < num.lastIndexOf('C') ? tensIncluce4or9++ : null
+     
+     !num.includes('C') ? null :
+     num.indexOf('C') < num.indexOf('D') ? hundredsInclude4or9++ : 
+     num.indexOf('C') < num.lastIndexOf('M') ? hundredsInclude4or9++ : null
+     
+     
+     OnesMinus = onesInclude4or9 * -2
+     tensMinus = tensIncluce4or9 * -20
+     hundredsMinus = hundredsInclude4or9 * -200
+     
+     const numString = num.toString(); 
+     
+     let convert1 = numString.replaceAll("I", 1)
+     let convert5 = convert1.replaceAll("V", 5)
+     let convert10 = convert5.replaceAll("X", 10)
+     let convert50 = convert10.replaceAll("L", 50)
+     let convert100 = convert50.replaceAll("C", 100)
+     let convert500 = convert100.replaceAll("D", 500)
+     let convert1000 = convert500.replaceAll("M", 1000)
+     
+     let strToArray = convert1000.split(",")
+     let convertSum = parseInt(strToArray.reduce(function(total, num) {
+         return parseFloat(total) + parseFloat(num)
+     }))
+     
+     const CompleteNumber = convertSum + OnesMinus + tensMinus + hundredsMinus
+     
+     return CompleteNumber
+    }
 
 module.exports = RomanNumerals
